@@ -1,12 +1,15 @@
 Package: plotDK
-Title: Plot summary statistics as choropleth maps of danish administrative areas
-Description: This package provides a ggplot2 frontend to plot summary statistics on danish provinces,
+Title: Plot Summary Statistics as Choropleth Maps of Danish Administrative Areas
+Description: Provides a ggplot2 front end to plot summary statistics on danish provinces,
     regions, municipalities, and zipcodes. The needed geoms of each of the four levels are 
-    inherent in the package, thus making these types of plots easy for the user. This is essentialy 
+    inherent in the package, thus making these types of plots easy for the user. This is essentially 
     an updated port of the previously available 'mapDK' package by Sebastian Barfort.
-Version: 0.1.0.9001
-Author: Kristian Stendorff Nielsen
-Maintainer: Kristian Stendorff Nielsen <kristiansn123@gmail.com>
+Version: 0.1.0
+Authors@R: 
+    person(given = "Kristian Stendorff",
+           family = "Nielsen",
+           role = c("aut", "cre"),
+           email = "krisdorff@hotmail.com")
 Depends: R (>= 4.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
