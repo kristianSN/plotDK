@@ -138,19 +138,18 @@ p +
 By default plotDK does not show missing entities. This means that subplots can easily be drawn, by only providing a subset of entities in the data:
 
 ```{r subplot}
-municipality_data <- data.frame(
-  municipality_name = c("frederiksberg", "københavn"),
-  factor_value = c("A", "B"),
-  stringsAsFactors = FALSE
-)
+zipcode_data <- plotDK::zipcode_info
+
+zipcode_subset <- zipcode_data[zipcode_data$zipcode_numbers < 3000, , drop = FALSE]  
+
+zipcode_subset$numeric_value <- sample(1:100, size = nrow(zipcode_subset), replace = TRUE)
 
 p <- plotDK::plotDK(
-  data = municipality_data,
-  id = "municipality_name",
-  value = "factor_value",
-  plotlevel = "municipality"
+  data = zipcode_subset,
+  id = "zipcode_numbers",
+  value = "numeric_value",
+  plotlevel = "zipcode"
 )
-
 p
 
 
@@ -162,10 +161,10 @@ If you only have data on a subset of entities, but want the entire map drawn, do
 ```{r subplot_full}
 
 p <- plotDK::plotDK(
-  data = municipality_data,
-  id = "municipality_name",
-  value = "factor_value",
-  plotlevel = "municipality",
+  data = zipcode_subset,
+  id = "zipcode_numbers",
+  value = "numeric_value",
+  plotlevel = "zipcode",
   show_missing = TRUE
 )
 
