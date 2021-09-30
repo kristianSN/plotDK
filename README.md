@@ -67,26 +67,26 @@ municipality_data <- data.frame(
 
 municipality_data[1:20,]
 #>    municipality_name numeric_value
-#> 1           aabenraa            40
-#> 2            aalborg            58
-#> 3                ærø             3
-#> 4        albertslund            80
-#> 5            allerød            96
-#> 6             aarhus            41
-#> 7             assens            42
-#> 8           ballerup            18
-#> 9            billund             3
-#> 10          bornholm            15
-#> 11           brøndby            37
-#> 12       brønderslev            42
-#> 13       christiansø            74
-#> 14            dragør            92
-#> 15            egedal            87
-#> 16           esbjerg            65
-#> 17   faaborg-midtfyn            10
-#> 18              fanø            78
-#> 19          favrskov            15
-#> 20              faxe             1
+#> 1           aabenraa             8
+#> 2            aalborg            52
+#> 3                ærø            17
+#> 4        albertslund           100
+#> 5            allerød            89
+#> 6             aarhus            47
+#> 7             assens            59
+#> 8           ballerup            45
+#> 9            billund            60
+#> 10          bornholm            20
+#> 11           brøndby            28
+#> 12       brønderslev           100
+#> 13       christiansø            45
+#> 14            dragør            98
+#> 15            egedal            81
+#> 16           esbjerg             1
+#> 17   faaborg-midtfyn            36
+#> 18              fanø            76
+#> 19          favrskov            75
+#> 20              faxe            78
 ```
 
 Plotting these values on their municipalities is as simple as providing
@@ -161,19 +161,18 @@ subplots can easily be drawn, by only providing a subset of entities in
 the data:
 
 ``` r
-municipality_data <- data.frame(
-  municipality_name = c("frederiksberg", "københavn"),
-  factor_value = c("A", "B"),
-  stringsAsFactors = FALSE
-)
+zipcode_data <- plotDK::zipcode_info
+
+zipcode_subset <- zipcode_data[zipcode_data$zipcode_numbers < 3000, , drop = FALSE]  
+
+zipcode_subset$numeric_value <- sample(1:100, size = nrow(zipcode_subset), replace = TRUE)
 
 p <- plotDK::plotDK(
-  data = municipality_data,
-  id = "municipality_name",
-  value = "factor_value",
-  plotlevel = "municipality"
+  data = zipcode_subset,
+  id = "zipcode_numbers",
+  value = "numeric_value",
+  plotlevel = "zipcode"
 )
-
 p
 ```
 
@@ -184,10 +183,10 @@ drawn, do this by passing the argument; show\_missing = TRUE:
 
 ``` r
 p <- plotDK::plotDK(
-  data = municipality_data,
-  id = "municipality_name",
-  value = "factor_value",
-  plotlevel = "municipality",
+  data = zipcode_subset,
+  id = "zipcode_numbers",
+  value = "numeric_value",
+  plotlevel = "zipcode",
   show_missing = TRUE
 )
 
