@@ -2,7 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -15,10 +14,8 @@ knitr::opts_chunk$set(
 
 # plotDK
 
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of plotDK is to ...
+plotDK provides easy access to plot summary statistics as choropleth maps of danish administrative areas. plotDK supports 
+geoms for danish regions, provices, municipalities, and zipcodes. 
 
 ## Installation
 
@@ -28,27 +25,152 @@ You can install the released version of plotDK from [CRAN](https://CRAN.R-projec
 install.packages("plotDK")
 ```
 
-## Example
+or from github with:
 
-This is a basic example which shows you how to solve a common problem:
+``` r
+devtools::install_github("https://github.com/kristianSN/plotDK")
+```
 
-```{r example}
+## Empty maps
+
+To simply show a choropleth map of a chosen administrative level (here regions) invoke:
+
+```{r example-empty-regions, message = FALSE}
 library(plotDK)
-## basic example code
+
+plotDK(plotlevel = "region")
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Switching to plot municipalities is as simply as switching the plotlevel to "municipality":
 
-```{r cars}
-summary(cars)
+```{r example-empty-municipalities, message = FALSE}
+
+plotDK(plotlevel = "municipality")
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
 
-You can also embed plots, for example:
+## Plotting summary statistics on municipalities
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+To fill the maps with values, first generate or load a data set containing one row per entity, with a valid ID column and a value column to be plotted. 
+plotDK contains information of valid ID's. For municipalities this data is saved in:
+
+``` r
+plotDK::municipality_info
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+Here let's generate a dataset with valid region ID's and assign each region a random numeric value:
+
+```{r example-data-municipalities}
+valid_ids <- plotDK::municipality_info
+
+municipality_data <- data.frame(
+  municipality_name = valid_ids$municipality_names,
+  numeric_value = sample(1:100, size = length(valid_ids$municipality_names), replace = TRUE),
+  stringsAsFactors = FALSE
+)
+
+municipality_data[1:20,]
+
+```
+
+Plotting these values on their municipalities is as simple as providing the municipality data to plotDK(), while providing the names of the ID and value variables:
+
+```{r example-plot-municipalities, message = FALSE}
+
+plotDK::plotDK(
+  data = municipality_data,
+  id = "municipality_name",
+  value = "numeric_value",
+  plotlevel = "municipality"
+)
+
+```
+
+The value scales depends upon the type of the value variable. That is means if we try to plot a character or factor variable, the plot will change accordingly:
+
+```{r example-plot-municipalities-factor, message = FALSE}
+municipality_data <- data.frame(
+  municipality_name = valid_ids$municipality_names,
+  factor_value = factor(sample(c("a", "b"), size = length(valid_ids$municipality_names), replace = TRUE)),
+  stringsAsFactors = FALSE
+)
+
+plotDK::plotDK(
+  data = municipality_data,
+  id = "municipality_name",
+  value = "factor_value",
+  plotlevel = "municipality"
+)
+```
+
+
+## ggplot compatability
+
+The resulting plots are ggplot2-objects. This means that they can be altered or styled with normal ggplot elements:
+
+```{r example-adding-title-and-switching-legend-label}
+library(ggplot2)
+p <- plotDK::plotDK(
+  data = municipality_data,
+  id = "municipality_name",
+  value = "factor_value",
+  plotlevel = "municipality"
+)
+
+p + 
+  ggtitle("Some title") +
+  scale_fill_manual(
+    values=c("firebrick", "darkgoldenrod"),
+    name = "Letters"
+  ) + 
+  theme(
+    panel.background = element_rect(
+      fill = "lightblue"
+    )
+  )
+
+```
+
+## Subplots
+
+By default plotDK does not show missing entities. This means that subplots can easily be drawn, by only providing a subset of entities in the data:
+
+```{r subplot}
+municipality_data <- data.frame(
+  municipality_name = c("frederiksberg", "københavn"),
+  factor_value = c("A", "B"),
+  stringsAsFactors = FALSE
+)
+
+p <- plotDK::plotDK(
+  data = municipality_data,
+  id = "municipality_name",
+  value = "factor_value",
+  plotlevel = "municipality"
+)
+
+p
+
+
+```
+
+
+If you only have data on a subset of entities, but want the entire map drawn, do this by passing the argument; show_missing = TRUE:
+
+```{r subplot_full}
+
+p <- plotDK::plotDK(
+  data = municipality_data,
+  id = "municipality_name",
+  value = "factor_value",
+  plotlevel = "municipality",
+  show_missing = TRUE
+)
+
+p
+
+```
+
+

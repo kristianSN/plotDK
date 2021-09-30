@@ -3,8 +3,8 @@ Title: Plot summary statistics as choropleth maps of danish administrative areas
 Description: This package provides a ggplot2 frontend to plot summary statistics on danish provinces,
     regions, municipalities, and zipcodes. The needed geoms of each of the four levels are 
     inherent in the package, thus making these types of plots easy for the user. This is essentialy 
-    a lightweight version of the previously available 'mapDK' package by Sebastian Barfort.
-Version: 0.1.0.0
+    an updated port of the previously available 'mapDK' package by Sebastian Barfort.
+Version: 0.1.0.9001
 Author: Kristian Stendorff Nielsen
 Maintainer: Kristian Stendorff Nielsen <kristiansn123@gmail.com>
 Depends: R (>= 4.0)

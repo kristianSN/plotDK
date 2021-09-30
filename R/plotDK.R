@@ -96,28 +96,31 @@ plotDK <- function(data = NULL,
   )
   
   if(is.null(data)) {
-    plot_aes <- aes(
+    
+    geom_aes <- aes(
       x = !!sym("long"),
       y = !!sym("lat"),
-      group = !!sym("group"),
       text = !!sym("id"),
+      group = !!sym("group"),
+      subgroup = !!sym("hole"),
       fill = NULL
     )
+    
   } else {
-    plot_aes <- aes(
+    geom_aes <- aes(
       x = !!sym("long"),
       y = !!sym("lat"),
-      group = !!sym("group"),
       text = !!sym("id"),
+      group = !!sym("group"),
+      subgroup = !!sym("hole"),
       fill = !!sym(value)
     )
   }
   
   p <- ggplot(
     plotdata, 
-    mapping = plot_aes
+    mapping = geom_aes
   ) +
-    geom_polygon() +
     theme(
       axis.title = element_blank(),
       axis.ticks = element_blank(),
@@ -128,13 +131,21 @@ plotDK <- function(data = NULL,
         color = "white", 
         fill = "white"
       )
-    ) +
-    coord_map()
+    ) 
   
   if(show_borders) {
     p <- p +
-      geom_path()
+      geom_polygon(
+        color = "black"
+      )
+  } else {
+    p <- p +
+      geom_polygon(
+      )
   }
+  
+  p <- p + 
+    coord_map()
   
   if(length(titel)) {
     p <- p +

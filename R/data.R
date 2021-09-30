@@ -1,6 +1,6 @@
 #' @title Municipality data with keys and polygon-geoms for municipalities of Denmark
 #'
-#' @format A data frame with 39,230 rows and 6 columns:
+#' @format A data frame with 39,230 rows and 7 columns:
 #'  \describe{
 #'    \item{long}{Longitude coordinates.}
 #'    \item{lat}{Latitude coordinates.}
@@ -8,6 +8,7 @@
 #'    \item{group}{Geom groups.}
 #'    \item{id}{Name of entity.}
 #'    \item{id_numeric}{Number of entity.}
+#'    \item{hole}{Indication of a geom hole.}
 #'  }
 #'  
 #' @source Statistics Denmark
@@ -15,7 +16,7 @@
 
 #' @title Province data with keys and polygon-geoms for provinces of Denmark
 #'
-#' @format A data frame with 4,083 rows og 6 columns:
+#' @format A data frame with 4,083 rows og 7 columns:
 #'  \describe{
 #'    \item{long}{Longitude coordinates.}
 #'    \item{lat}{Latitude coordinates.}
@@ -23,13 +24,14 @@
 #'    \item{group}{Geom groups.}
 #'    \item{id}{Name of entity.}
 #'    \item{id_numeric}{Number of entity.}
+#'    \item{hole}{Indication of a geom hole.}
 #'  }
 #'  @source Statistics Denmark
 "province"
 
 #' @title Region data with keys and polygon-geoms for regions of Denmark
 #' 
-#' @format A data frame with 32,522 rows and 6 columns:
+#' @format A data frame with 32,522 rows and 7 columns:
 #'  \describe{
 #'    \item{long}{Longitude coordinates.}
 #'    \item{lat}{Latitude coordinates.}
@@ -37,13 +39,14 @@
 #'    \item{group}{Geom groups.}
 #'    \item{id}{Name of entity.}
 #'    \item{id_numeric}{Number of entity.}
+#'    \item{hole}{Indication of a geom hole.}
 #'  }
 #' @source Statistics Denmark
 "region"
 
 #' @title  Zipcode data with keys and polygon-geoms for zipcodes of Denmark
 #'
-#' @format A data frame with 49,322 rows and 6 columns:
+#' @format A data frame with 49,322 rows and 7 columns:
 #'  \describe{
 #'    \item{long}{Longitude coordinates.}
 #'    \item{lat}{Latitude coordinates.}
@@ -51,6 +54,7 @@
 #'    \item{group}{Geom groups.}
 #'    \item{id}{Name of entity.}
 #'    \item{id_numeric}{Number of entity.}
+#'    \item{hole}{Indication of a geom hole.}
 #'  }
 #' @source Statistics Denmark
 "zipcodes"

@@ -65,7 +65,7 @@ test_that(
     labels <- p$labels
     
     expect_setequal(
-      c("x", "y", "group", "text", "fill"),
+      c("x", "y", "group", "subgroup", "text", "fill"),
       names(labels)
     )
     

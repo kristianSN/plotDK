@@ -5,7 +5,7 @@
 \alias{zipcodes}
 \title{Zipcode data with keys and polygon-geoms for zipcodes of Denmark}
 \format{
-A data frame with 49,322 rows and 6 columns:
+A data frame with 49,322 rows and 7 columns:
  \describe{
    \item{long}{Longitude coordinates.}
    \item{lat}{Latitude coordinates.}
@@ -13,6 +13,7 @@ A data frame with 49,322 rows and 6 columns:
    \item{group}{Geom groups.}
    \item{id}{Name of entity.}
    \item{id_numeric}{Number of entity.}
+   \item{hole}{Indication of a geom hole.}
  }
 }
 \source{
